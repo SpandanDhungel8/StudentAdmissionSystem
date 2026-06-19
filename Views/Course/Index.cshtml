@@ -1,0 +1,144 @@
+﻿@model IEnumerable<StudentAdmissionSystem.Models.Course>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+    }
+
+    /* HEADER */
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        border-bottom: 2px solid #BA7517;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        color: #2C2C2A;
+    }
+
+        .title span {
+            color: #BA7517;
+        }
+
+    /* COURSE CARD */
+    .course-card {
+        background: #FAEEDA;
+        border: 1px solid #BA7517;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        transition: 0.2s;
+    }
+
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(186, 117, 23, 0.2);
+        }
+
+    .course-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2C2C2A;
+    }
+
+    .meta {
+        font-size: 12px;
+        color: #854F0B;
+        margin-top: 5px;
+    }
+
+    .stats {
+        margin-top: 10px;
+        font-size: 12px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+    .approved {
+        background: #D4EDDA;
+        color: #155724;
+    }
+
+    .pending {
+        background: #FFF3CD;
+        color: #856404;
+    }
+
+    /* STUDENT LIST */
+    .student-list {
+        margin-top: 10px;
+        padding-left: 18px;
+        font-size: 13px;
+        color: black;
+    }
+
+    .empty {
+        font-size: 12px;
+        color: black;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="wrap">
+
+    ```
+    <div class="title">
+        // <span>courses</span>.panel
+    </div>
+
+    @foreach (var course in Model)
+    {
+        var approved = course.Admissions?.Count(a => a.Status == "Approved") ?? 0;
+        var pending = course.Admissions?.Count(a => a.Status == "Pending") ?? 0;
+
+        <div class="course-card">
+
+            <div class="course-title">
+                @course.CourseName
+            </div>
+
+            <div class="meta">
+                Capacity: @course.Capacity |
+                Approved: @approved |
+                Pending: @pending
+            </div>
+
+            <div class="stats">
+                <strong style="color:black;">Enrolled Students:</strong>
+
+                @if (course.Admissions != null && course.Admissions.Any(a => a.Status == "Approved"))
+                {
+                    <ul class="student-list">
+                        @foreach (var admission in course.Admissions.Where(a => a.Status == "Approved"))
+                        {
+                            <li>
+                                @admission.Student.FullName
+                                <span class="badge approved">approved</span>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="empty">No approved students yet</div>
+                }
+            </div>
+
+        </div>
+    }
+    ```
+
+</div>

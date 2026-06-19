@@ -3,48 +3,285 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StudentAdmissionSystem</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - SAS</title>
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/StudentAdmissionSystem.styles.css" asp-append-version="true" />
+
+    <!-- Icons + Font -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@tabler/icons-webfont@latest/tabler-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+    <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: 'Space Mono', monospace;
+                background: #0D0D0D;
+                color: #D3D1C7;
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* ── SIDEBAR ── */
+            .sidebar {
+                width: 220px;
+                min-height: 100vh;
+                background: #111111;
+                border-right: 1px solid #BA7517;
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 100;
+            }
+
+            .sidebar-logo {
+                padding: 20px 18px;
+                border-bottom: 1px solid #1f1f1f;
+            }
+
+            .logo-text {
+                color: #BA7517;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            .logo-sub {
+                color: #444;
+                font-size: 9px;
+                margin-top: 4px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .cursor {
+                display: inline-block;
+                width: 8px;
+                height: 14px;
+                background: #BA7517;
+                margin-left: 2px;
+                vertical-align: middle;
+                animation: blink 1s infinite;
+            }
+
+            @@keyframes blink {
+                0%, 100% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            .sidebar-nav {
+                padding: 20px 0;
+                flex: 1;
+            }
+
+            .nav-label {
+                font-size: 8px;
+                color: #333;
+                letter-spacing: 2px;
+                padding: 0 18px;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+            }
+
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 18px;
+                font-size: 11px;
+                color: #555;
+                text-decoration: none;
+                border-left: 2px solid transparent;
+                transition: all 0.2s ease;
+            }
+
+                .nav-item:hover {
+                    color: #BA7517;
+                    background: #1a1500;
+                    border-left-color: #BA7517;
+                    box-shadow: inset 3px 0 0 #BA7517;
+                    text-decoration: none;
+                }
+
+                .nav-item.active {
+                    color: #BA7517;
+                    background: #1a1500;
+                    border-left-color: #BA7517;
+                }
+
+                .nav-item i {
+                    font-size: 15px;
+                }
+
+            .sidebar-footer {
+                padding: 14px 18px;
+                border-top: 1px solid #1a1a1a;
+                font-size: 9px;
+                color: #2a2a2a;
+            }
+
+            /* ── TOPBAR ── */
+            .topbar {
+                position: fixed;
+                top: 0;
+                left: 220px;
+                right: 0;
+                height: 50px;
+                background: #0D0D0D;
+                border-bottom: 1px solid #1a1a1a;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 24px;
+                z-index: 99;
+            }
+
+            .topbar-title {
+                font-size: 11px;
+                color: #BA7517;
+                letter-spacing: 1px;
+            }
+
+            .topbar-badge {
+                font-size: 9px;
+                color: #3B6D11;
+                background: #0a1a00;
+                padding: 3px 10px;
+                border-radius: 3px;
+                border: 0.5px solid #3B6D11;
+            }
+
+            #clock {
+                font-size: 10px;
+                color: #888;
+                margin-left: 20px;
+            }
+
+            /* ── MAIN CONTENT ── */
+            .main-content {
+                margin-left: 220px;
+                margin-top: 50px;
+                padding: 28px;
+                padding-bottom: 70px;
+                min-height: calc(100vh - 50px);
+                flex: 1;
+            }
+
+            /* ── FOOTER ── */
+            .retro-footer {
+                position: fixed;
+                bottom: 0;
+                left: 220px;
+                right: 0;
+                padding: 14px 28px;
+                border-top: 1px solid #1a1a1a;
+                font-size: 9px;
+                color: #2a2a2a;
+                letter-spacing: 1px;
+                background: #0D0D0D;
+            }
+
+            /* ── RESPONSIVE ── */
+            @@media (max-width: 768px) {
+                .sidebar {
+                    width: 60px;
+                }
+
+                .topbar,
+                .main-content,
+                .retro-footer {
+                    margin-left: 60px;
+                    left: 60px;
+                }
+
+                .nav-item span {
+                    display: none;
+                }
+            }
+    </style>
+
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StudentAdmissionSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-text">SAS_v1.0<span class="cursor"></span></div>
+            <div class="logo-sub">admission system</div>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-label">navigation</div>
+
+            <a class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")"
+               asp-controller="Student" asp-action="Dashboard">
+                <i class="ti ti-layout-dashboard"></i><span>dashboard</span>
+            </a>
+
+            <a class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Students" ? "active" : "")"
+               asp-controller="Student" asp-action="Index">
+                <i class="ti ti-users"></i><span>students</span>
+            </a>
+
+            <a class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Courses" ? "active" : "")"
+               asp-controller="Course" asp-action="Index">
+                <i class="ti ti-book"></i><span>courses</span>
+            </a>
+
+            <a class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Admissions" ? "active" : "")"
+               asp-controller="Admission" asp-action="Index">
+                <i class="ti ti-file-text"></i><span>admissions</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">SAS © 2026 — v1.0.0</div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - StudentAdmissionSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="topbar-title"> @ViewData["Title"] :: SAS</div>
+        <div style="display:flex; align-items:center;">
+            <div class="topbar-badge">● system online</div>
+            <div id="clock"></div>
         </div>
-    </footer>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+    <!-- FOOTER -->
+    <div class="retro-footer">
+        &copy; 2026 — student admission system — all rights reserved
+    </div>
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Clock Script -->
+    <script>
+        setInterval(() => {
+        const now = new Date();
+        document.getElementById("clock").innerText = now.toLocaleTimeString();
+        }, 1000);
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

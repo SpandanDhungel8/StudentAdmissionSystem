@@ -1,0 +1,212 @@
+﻿@model IEnumerable<StudentAdmissionSystem.Models.Admission>
+
+@{
+    ViewData["Title"] = "Admissions";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        border-bottom: 2px solid #BA7517;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+        .title span {
+            color: #BA7517;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #FAEEDA;
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #D3D1C7;
+        text-align: left;
+        color: black;
+    }
+
+    th {
+        background: #f2d9a6;
+        color: #854F0B;
+        text-transform: uppercase;
+        font-size: 11px;
+    }
+    .btn {
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-right: 5px;
+    border: 1px solid #BA7517;
+    color: #BA7517;
+    display: inline-block;
+    transition: 0.2s ease;
+    background: transparent;
+}
+
+.btn:hover {
+    background: #BA7517;
+    color: white;
+}
+
+/* PRIMARY BUTTON (NEW ADMISSION) */
+.btn-primary {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 14px;
+    background: #BA7517;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #BA7517;
+    transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: #8a5510;
+    border-color: #8a5510;
+}
+    
+
+        .btn-approve:hover {
+            background: #155724;
+            color: white;
+        }
+
+    .btn-reject {
+        color: #721C24;
+        border-color: #721C24;
+    }
+
+        .btn-reject:hover {
+            background: #721C24;
+            color: white;
+        }
+
+    .btn-create {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 8px 12px;
+        background: #BA7517;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .status {
+        font-weight: bold;
+        font-size: 11px;
+    }
+   .btn-revert {
+    color: ;
+    border: 1px solid #BA7517;
+    padding: 5px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 11px;
+    display: inline-block;
+    transition: 0.2s ease;
+}
+
+.btn-revert:hover {
+    background:snow;
+    color: lavenderblush;
+}
+</style>
+
+<div class="wrap">
+
+    <div class="title">
+        // <span>admissions</span>.panel
+    </div>
+
+    <a asp-action="Create" class="btn-primary">+ new admission</a>
+
+    <div style="margin-bottom:15px;">
+        <a asp-action="Index" class="btn">All</a>
+        <a asp-action="Index" asp-route-status="Pending" class="btn">Pending</a>
+        <a asp-action="Index" asp-route-status="Approved" class="btn">Approved</a>
+        <a asp-action="Index" asp-route-status="Rejected" class="btn">Rejected</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Student.FullName</td>
+                    <td>@item.Course.CourseName</td>
+                    <td>@item.ApplicationDate.ToShortDateString()</td>
+
+                    <td>
+                        @if (item.Status == "Pending")
+                        {
+                            <span class="status" style="color:darkorange;">Pending</span>
+                        }
+                        else if (item.Status == "Approved")
+                        {
+                            <span class="status" style="color:green;">Approved</span>
+                        }
+                        else
+                        {
+                            <span class="status" style="color:red;">Rejected</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (item.Status == "Pending")
+                        {
+                            <a asp-action="Approve"
+                               asp-route-id="@item.AdmissionId"
+                               class="btn btn-approve">approve</a>
+
+                            <a asp-action="Reject"
+                               asp-route-id="@item.AdmissionId"
+                               class="btn btn-reject">reject</a>
+                        }
+                        else
+                        {
+                            <span style="font-size:11px; color:gray;">finalized</span>
+                        }
+                        @if (item.Status != "Pending")
+                        {
+                       
+                                <a asp-action="Revert"
+                                   asp-route-id="@item.AdmissionId"
+                               class="btn btn-revert"
+                                   style="color:#BA7517;border-color:#BA7517;">
+                                    revert
+                                </a>
+                           }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

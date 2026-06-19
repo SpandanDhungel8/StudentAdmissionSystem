@@ -1,0 +1,136 @@
+﻿@model StudentAdmissionSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Delete Student";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .delete-wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+        max-width: 700px;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #A32D2D;
+        border-bottom: 2px solid #A32D2D;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .warning-box {
+        background: #FCEBEB;
+        border: 1px solid #A32D2D;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        color: #A32D2D;
+        font-size: 12px;
+    }
+
+    .card {
+        background: #FAEEDA;
+        border: 1px solid #BA7517;
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    .row {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .label {
+        width: 140px;
+        font-size: 11px;
+        color: #854F0B;
+        text-transform: uppercase;
+    }
+
+    .value {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .btn-group {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        padding: 8px 14px;
+        border-radius: 4px;
+        text-decoration: none;
+        border: 1px solid;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        background: #A32D2D;
+        color: #fff;
+        border-color: #A32D2D;
+    }
+
+        .btn-delete:hover {
+            background: #7d1f1f;
+        }
+
+    .btn-cancel {
+        color: #185FA5;
+        border-color: #185FA5;
+        background: transparent;
+    }
+
+        .btn-cancel:hover {
+            background: #E6F1FB;
+        }
+</style>
+
+<div class="delete-wrap">
+
+    <div class="title">
+        // delete.<span>student</span>
+    </div>
+
+    <div class="warning-box">
+        ⚠ Are you sure you want to delete this student? This action cannot be undone.
+    </div>
+
+    <div class="card">
+
+        <div class="row">
+            <div class="label">ID</div>
+            <div class="value">@Model.StuId</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Name</div>
+            <div class="value">@Model.FullName</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Email</div>
+            <div class="value">@Model.Email</div>
+        </div>
+
+    </div>
+
+    <form asp-action="Delete" method="post">
+
+        <input type="hidden" asp-for="StuId" />
+
+        <div class="btn-group">
+            <button type="submit" class="btn btn-delete">yes, delete</button>
+            <a asp-action="Index" class="btn btn-cancel">cancel</a>
+        </div>
+
+    </form>
+
+</div>

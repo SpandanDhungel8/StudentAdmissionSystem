@@ -1,0 +1,138 @@
+﻿@model StudentAdmissionSystem.ViewModels.LoginVM
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        background: #0D0D0D;
+        font-family: 'Space Mono', monospace;
+        color: #D3D1C7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    /* ── SAS BRAND ── */
+    .login-brand {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .logo-text {
+        color: #BA7517;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .logo-sub {
+        color: #444;
+        font-size: 10px;
+        margin-top: 4px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 14px;
+        background: #BA7517;
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 1s infinite;
+    }
+
+    @@keyframes blink {
+        0%, 100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+    }
+
+    /* ── LOGIN BOX ── */
+    .login-box {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #BA7517;
+        background: #111;
+        border-radius: 6px;
+        box-shadow: 0 0 15px rgba(186, 117, 23, 0.15);
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #D3D1C7;
+        border: 1px solid #333;
+        color:black;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+    }
+
+        input:focus {
+            border-color: #BA7517;
+            outline: none;
+        }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #BA7517;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        transition: 0.2s;
+    }
+
+        button:hover {
+            background: #8a550f;
+        }
+
+    .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>
+
+<!-- SAS BRAND HEADER -->
+<div class="login-brand">
+    <div class="logo-text">
+        SAS_v1.0<span class="cursor"></span>
+    </div>
+    <div class="logo-sub">
+        admission system
+    </div>
+</div>
+
+<!-- LOGIN BOX -->
+<div class="login-box">
+
+    <form asp-action="Login" method="post">
+
+        <input asp-for="Username" placeholder="username" />
+        <input asp-for="Password" type="password" placeholder="password" />
+
+        <button type="submit">login</button>
+
+    </form>
+
+    <div class="error">
+        @ViewBag.Error
+    </div>
+
+</div>

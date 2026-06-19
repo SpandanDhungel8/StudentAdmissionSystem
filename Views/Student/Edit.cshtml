@@ -1,0 +1,159 @@
+﻿@model StudentAdmissionSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .retro-form-wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+        max-width: 700px;
+    }
+
+    .form-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2C2C2A;
+        border-bottom: 2px solid #BA7517;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+        .form-title span {
+            color: #BA7517;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-size: 11px;
+        color: #854F0B;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #D3D1C7;
+        border-radius: 4px;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        background: #FAEEDA;
+        outline: none;
+    }
+
+        input:focus {
+            border-color: #BA7517;
+            box-shadow: 0 0 5px rgba(186, 117, 23, 0.3);
+        }
+
+    .btn-submit {
+        background: #3B6D11;
+        color: #fff;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 4px;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+        .btn-submit:hover {
+            background: #2f550e;
+        }
+
+    .btn-back {
+        display: inline-block;
+        margin-top: 15px;
+        font-size: 11px;
+        color: #185FA5;
+        text-decoration: none;
+    }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+
+    .text-danger {
+        font-size: 10px;
+        color: #A32D2D;
+    }
+
+    .id-badge {
+        font-size: 11px;
+        color: #854F0B;
+        margin-bottom: 10px;
+        background: #FAEEDA;
+        padding: 6px 10px;
+        display: inline-block;
+        border-radius: 4px;
+        border: 1px solid #BA7517;
+    }
+</style>
+
+<div class="retro-form-wrap">
+
+    <div class="form-title">
+        // <span>edit</span>.student
+    </div>
+
+    <!-- SHOW ID (read-only) -->
+    <div class="id-badge">
+        Student ID: @Model.StuId
+    </div>
+
+    <form asp-action="Edit" method="post">
+
+        <!-- Hidden ID (IMPORTANT) -->
+        <input type="hidden" asp-for="StuId" />
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            <input asp-for="Address" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input asp-for="PhoneNumber" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input asp-for="Email" type="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input asp-for="DOB" type="date" />
+            <span asp-validation-for="DOB" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn-submit">+ update_student</button>
+
+    </form>
+
+    <a asp-action="Index" class="btn-back">← back to list</a>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

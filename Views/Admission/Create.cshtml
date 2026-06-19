@@ -1,0 +1,105 @@
+﻿@model StudentAdmissionSystem.Models.Admission
+
+@{
+    ViewData["Title"] = "Apply Admission";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .form-wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+        max-width: 700px;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        border-bottom: 2px solid #BA7517;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+        .title span {
+            color: #BA7517;
+        }
+
+    label {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #854F0B;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #D3D1C7;
+        background: #FAEEDA;
+        border-radius: 4px;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .btn-submit {
+        background: #3B6D11;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-submit:hover {
+            background: #2f550e;
+        }
+
+    .text-danger {
+        font-size: 10px;
+        color: red;
+    }
+</style>
+
+<div class="form-wrap">
+
+    <div class="title">
+        // <span>apply</span>.admission
+    </div>
+
+    <form asp-action="Create" method="post">
+
+        <!-- STUDENT DROPDOWN -->
+        <label>Select Student</label>
+        <select asp-for="StuId" required>
+            <option value="">-- Choose Student --</option>
+            @foreach (var s in ViewBag.Students)
+            {
+                <option value="@s.StuId">@s.FullName</option>
+            }
+        </select>
+        <span asp-validation-for="StuId" class="text-danger"></span>
+
+        <!-- COURSE DROPDOWN -->
+        <label>Select Course</label>
+        <select asp-for="CourseId" required>
+            <option value="">-- Choose Course --</option>
+            @foreach (var c in ViewBag.Courses)
+            {
+                <option value="@c.CourseId">@c.CourseName</option>
+            }
+        </select>
+        <span asp-validation-for="CourseId" class="text-danger"></span>
+
+        <button type="submit" class="btn-submit">+ apply</button>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

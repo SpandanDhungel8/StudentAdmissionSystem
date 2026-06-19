@@ -1,0 +1,145 @@
+﻿@model StudentAdmissionSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .details-wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+        max-width: 800px;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2C2C2A;
+        border-bottom: 2px solid #BA7517;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+        .title span {
+            color: #BA7517;
+        }
+
+    .card {
+        background: #FAEEDA;
+        border: 1px solid #BA7517;
+        border-radius: 6px;
+        padding: 20px;
+    }
+
+    .row {
+        display: flex;
+        margin-bottom: 12px;
+    }
+
+    .label {
+        width: 150px;
+        font-size: 11px;
+        color: #854F0B;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .value {
+        font-size: 13px;
+        color: #2C2C2A;
+        font-weight: 600;
+    }
+
+    .id-badge {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 6px 10px;
+        font-size: 11px;
+        border: 1px solid #BA7517;
+        background: #fff3dc;
+        border-radius: 4px;
+        color: #854F0B;
+    }
+
+    .btn-group {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        padding: 8px 14px;
+        border-radius: 4px;
+        text-decoration: none;
+        border: 1px solid;
+        display: inline-block;
+    }
+
+    .btn-edit {
+        color: #3B6D11;
+        border-color: #3B6D11;
+    }
+
+        .btn-edit:hover {
+            background: #EAF3DE;
+        }
+
+    .btn-back {
+        color: #185FA5;
+        border-color: #185FA5;
+    }
+
+        .btn-back:hover {
+            background: #E6F1FB;
+        }
+</style>
+
+<div class="details-wrap">
+
+    <div class="title">
+        // <span>student</span>.details
+    </div>
+
+    <div class="id-badge">
+        Student ID: @Model.StuId
+    </div>
+
+    <div class="card">
+
+        <div class="row">
+            <div class="label">Full Name</div>
+            <div class="value">@Model.FullName</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Address</div>
+            <div class="value">@Model.Address</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Phone</div>
+            <div class="value">@Model.PhoneNumber</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Email</div>
+            <div class="value">@Model.Email</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Date of Birth</div>
+            <div class="value">@Model.DOB.ToShortDateString()</div>
+        </div>
+
+    </div>
+
+    <div class="btn-group">
+        <a asp-action="Edit" asp-route-id="@Model.StuId" class="btn btn-edit">edit</a>
+        <a asp-action="Index" class="btn btn-back">back</a>
+    </div>
+
+</div>

@@ -1,0 +1,200 @@
+﻿@model IEnumerable<StudentAdmissionSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .retro-wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+    }
+
+   
+
+    /* ── HEADER ── */
+    .retro-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #BA7517;
+        padding-bottom: 1rem;
+    }
+
+    .retro-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2C2C2A;
+        letter-spacing: -0.5px;
+    }
+
+        .retro-title span {
+            color: #BA7517;
+        }
+
+    .retro-subtitle {
+        font-size: 11px;
+        color: #888780;
+        margin-top: 4px;
+    }
+
+    .retro-btn {
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        background: #BA7517;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+        .retro-btn:hover {
+            background: #854F0B;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    /* ── TABLE ── */
+    .retro-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        font-family: 'Space Mono', monospace;
+    }
+
+        .retro-table th {
+            font-size: 11px;
+            color: antiquewhite;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #BA7517;
+        }
+
+        .retro-table td {
+            padding: 10px 12px;
+            color:whitesmoke;
+            border-bottom: 0.5px solid #D3D1C7;
+            font-size: 12px;
+        }
+
+        .retro-table tbody tr:hover {
+            background:grey;
+        }
+
+    .retro-tag {
+        font-size: 10px;
+        color: #854F0B;
+        background: #FAEEDA;
+        padding: 2px 8px;
+        border-radius: 3px;
+        font-weight: 700;
+    }
+
+    /* ── ACTION BUTTONS ── */
+    .action-btn {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        padding: 4px 8px;
+        border-radius: 3px;
+        text-decoration: none;
+        margin-right: 4px;
+        display: inline-block;
+        border: 0.5px solid;
+        font-weight: 700;
+    }
+
+    .btn-view {
+        color: #185FA5;
+        border-color: #185FA5;
+    }
+
+        .btn-view:hover {
+            background: #E6F1FB;
+        }
+
+    .btn-edit {
+        color: #3B6D11;
+        border-color: #3B6D11;
+    }
+
+        .btn-edit:hover {
+            background: #EAF3DE;
+        }
+
+    .btn-delete {
+        color: #A32D2D;
+        border-color: #A32D2D;
+    }
+
+        .btn-delete:hover {
+            background: #FCEBEB;
+        }
+
+    /* ── RESPONSIVE ── */
+    @@media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="retro-wrap">
+
+    
+
+    <!-- HEADER -->
+    <div class="retro-header">
+        <div>
+            <div class="retro-title"> <span>students</span>.list</div>
+            <div class="retro-subtitle">@Model.Count() records found</div>
+        </div>
+
+        <a asp-action="Create" class="retro-btn">+ add_student</a>
+    </div>
+
+    <!-- TABLE -->
+    <table class="retro-table">
+        <thead>
+            <tr>
+                <th>#id</th>
+                <th>full_name</th>
+                <th>address</th>
+                <th>phone</th>
+                <th>dob</th>
+                <th>email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><span class="retro-tag">@item.StuId</span></td>
+                    <td><strong>@item.FullName</strong></td>
+                    <td>@item.Address</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.DOB.ToShortDateString()</td>
+                    <td>@item.Email</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.StuId" class="action-btn btn-view">view</a>
+                        <a asp-action="Edit" asp-route-id="@item.StuId" class="action-btn btn-edit">edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.StuId" class="action-btn btn-delete">delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
