@@ -17,5 +17,20 @@ namespace StudentAdmissionSystem.Controllers
             
             return View(courses);
         }
+        public async Task<IActionResult> Create() {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Course course)
+        {
+            if (ModelState.IsValid)
+            {
+               await context.Courses.AddAsync(course);
+                context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(course);
+        }
     }
 }

@@ -1,0 +1,78 @@
+﻿@model StudentAdmissionSystem.Models.Course
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+    .form-wrap {
+        padding: 2rem;
+        font-family: 'Space Mono', monospace;
+        max-width: 600px;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        border-bottom: 2px solid #BA7517;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    label {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #854F0B;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #D3D1C7;
+        background: #FAEEDA;
+        font-family: 'Space Mono', monospace;
+    }
+
+    .btn-submit {
+        background: #BA7517;
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+        .btn-submit:hover {
+            background: #8a550f;
+        }
+</style>
+
+<div class="form-wrap">
+
+    <div class="title">// <span>create</span>.course</div>
+
+    <form asp-action="Create" method="post">
+
+        <label>Course Name</label>
+        <input asp-for="CourseName" />
+        <span asp-validation-for="CourseName"></span>
+
+        <label>Capacity</label>
+        <input asp-for="Capacity" type="number" />
+        <span asp-validation-for="Capacity"></span>
+        <label>Description</label>
+        <input asp-for="Description"  />
+        <span asp-validation-for="Description"></span>
+
+        <button type="submit" class="btn-submit">+ save course</button>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

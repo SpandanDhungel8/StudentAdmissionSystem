@@ -26,6 +26,26 @@
             color: #BA7517;
         }
 
+    .retro-btn {
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        background: #BA7517;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+        .retro-btn:hover {
+            background: #854F0B;
+            color: #fff;
+            text-decoration: none;
+        }
     /* COURSE CARD */
     .course-card {
         background: #FAEEDA;
@@ -97,6 +117,9 @@
     ```
     <div class="title">
         // <span>courses</span>.panel
+    </div>
+    <div>
+        <a asp-action="Create" class="retro-btn">Add Course +</a>
     </div>
 
     @foreach (var course in Model)
