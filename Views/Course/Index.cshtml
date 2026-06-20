@@ -108,20 +108,42 @@
     .empty {
         font-size: 12px;
         color: black;
-        margin-top: 8px;
+        margin-top: 8px;}
+
+        .btn-delete {
+            color: #A32D2D;
+            border-color: #A32D2D;
+        }
+
+            .btn-delete:hover {
+                background: #FCEBEB;
+            }
+
+    .action-btn {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        padding: 4px 8px;
+        border-radius: 3px;
+        text-decoration: none;
+        margin-right: 4px;
+        display: inline-block;
+        border: 0.5px solid;
+        font-weight: 700;
     }
+
+    
 </style>
 
 <div class="wrap">
 
     ```
     <div class="title">
-        // <span>courses</span>.panel
+        // <span>courses</span>
     </div>
     <div>
         <a asp-action="Create" class="retro-btn">Add Course +</a>
     </div>
-
+    <br />
     @foreach (var course in Model)
     {
         var approved = course.Admissions?.Count(a => a.Status == "Approved") ?? 0;
@@ -138,6 +160,8 @@
                 Approved: @approved |
                 Pending: @pending
             </div>
+         
+            <a asp-action="Delete" asp-route-id="@course.CourseId" class=" action-btn btn-delete">Delete Course</a>
 
             <div class="stats">
                 <strong style="color:black;">Enrolled Students:</strong>

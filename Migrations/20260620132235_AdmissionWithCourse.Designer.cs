@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAdmissionSystem.Models;
 
@@ -11,9 +12,11 @@ using StudentAdmissionSystem.Models;
 namespace StudentAdmissionSystem.Migrations
 {
     [DbContext(typeof(AdmissionDBcontext))]
-    partial class AdmissionDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20260620132235_AdmissionWithCourse")]
+    partial class AdmissionWithCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

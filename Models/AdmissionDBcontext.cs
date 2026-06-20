@@ -15,7 +15,13 @@ namespace StudentAdmissionSystem.Models
                 .WithMany()
                 .HasForeignKey(a => a.StuId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Admission>()
+                .HasOne(a => a.Course)
+                .WithMany()
+                .HasForeignKey(a => a.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
+       
     }
     
 }

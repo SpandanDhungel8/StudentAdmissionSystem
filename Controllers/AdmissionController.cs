@@ -14,6 +14,10 @@ namespace StudentAdmissionSystem.Controllers
 
         public async Task<IActionResult> Index(string status)
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             var admissions = context.Admissions
                 .Include(a => a.Student)
                 .Include(a => a.Course)
@@ -28,6 +32,10 @@ namespace StudentAdmissionSystem.Controllers
         }
         public async Task<IActionResult> Create()
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             ViewBag.Students = await context.Students.ToListAsync();
             ViewBag.Courses = await context.Courses.ToListAsync();
             return View();
@@ -35,6 +43,10 @@ namespace StudentAdmissionSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Admission admission)
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             // STEP 1: Validate dropdown selection
             if (admission.StuId == 0 || admission.CourseId == 0)
             {
@@ -82,6 +94,10 @@ namespace StudentAdmissionSystem.Controllers
         }
         public async Task<IActionResult> Approve(int id)
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             var admission = await context.Admissions.FindAsync(id);
 
             if (admission != null)
@@ -95,6 +111,10 @@ namespace StudentAdmissionSystem.Controllers
 
         public async Task<IActionResult> Reject(int id)
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             var admission = await context.Admissions.FindAsync(id);
 
             if (admission != null)
@@ -107,6 +127,10 @@ namespace StudentAdmissionSystem.Controllers
         }
         public async Task<IActionResult> Revert(int id)
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             var admission = await context.Admissions.FindAsync(id);
 
             if (admission != null)
