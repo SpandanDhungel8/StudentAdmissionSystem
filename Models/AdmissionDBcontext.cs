@@ -12,16 +12,16 @@ namespace StudentAdmissionSystem.Models
         {
             modelBuilder.Entity<Admission>()
                 .HasOne(a => a.Student)
-                .WithMany()
+                .WithMany() // (you can improve this later)
                 .HasForeignKey(a => a.StuId)
                 .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Admission>()
                 .HasOne(a => a.Course)
-                .WithMany()
+                .WithMany(c => c.Admissions) // 🔥 FIX IS HERE
                 .HasForeignKey(a => a.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
-       
     }
     
 }
